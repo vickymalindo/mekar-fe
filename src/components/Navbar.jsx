@@ -1,28 +1,15 @@
-import React from 'react';
-import MekarLogo from '../assets/mekar_logo_black.png';
-import { Link } from 'react-router-dom';
+import React from "react";
+import MekarLogo from "../assets/mekar_logo_black.png";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <header>
-      <nav
-        className="
-          flex flex-wrap
-          items-center
-          justify-between
-          w-full
-          py-4
-          md:py-0
-          px-4
-          text-lg text-gray-700
-          bg-white
-          border-b-black
-        "
-      >
+      <nav className="flex flex-wrap items-center justify-between w-full py-4 md:py-0 px-4 text-lg text-gray-700 bg-white border-b-2">
         <div>
-          <a href="#">
+          <Link to="/">
             <img src={MekarLogo} alt="logo_mekar" className="w-32 h-12" />
-          </a>
+          </Link>
         </div>
 
         <svg
@@ -45,14 +32,7 @@ const Navbar = () => {
           className="hidden w-full md:flex md:items-center md:w-auto"
           id="menu"
         >
-          <ul
-            className="
-              pt-4
-              text-base text-gray-700
-              md:flex
-              md:justify-between 
-              md:pt-0"
-          >
+          <ul className="pt-4 text-base text-gray-700 md:flex md:justify-between md:pt-0">
             <li>
               <Link
                 to="/form"

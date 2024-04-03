@@ -1,14 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   IoIosCheckmarkCircleOutline,
   IoIosCloseCircleOutline,
-} from 'react-icons/io';
+} from "react-icons/io";
 
 const Form = () => {
-  const [name, setName] = React.useState('');
+  const [name, setName] = React.useState("");
   const [identity, setIdentity] = React.useState(0);
-  const [email, setEmail] = React.useState('');
-  const [birth, setBirth] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [birth, setBirth] = React.useState("");
+  const emailRegex = /^[\w-\.]+@[a-z]+\.[a-z]{2,3}$/;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,8 +57,8 @@ const Form = () => {
             </div>
           </div>
         </div>
-        <div>
-          <div className="mb-4">
+        <div className="mb-4">
+          <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Identity Number
             </label>
@@ -68,7 +69,7 @@ const Form = () => {
               onChange={(e) => setIdentity(e.target.value)}
             />
           </div>
-          <div className="mb-4">
+          <div className="mt-1">
             <div className="flex items-center gap-1.5">
               {identity === 0 ? (
                 <IoIosCloseCircleOutline className="text-lg text-red-600" />
@@ -88,25 +89,57 @@ const Form = () => {
           </div>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Email
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="johndoe@example.com"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Email
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="johndoe@example.com"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mt-1">
+            <div className="flex items-center gap-1.5">
+              {email.length === 0 ? (
+                <IoIosCloseCircleOutline className="text-lg text-red-600" />
+              ) : (
+                <IoIosCheckmarkCircleOutline className="text-lg text-green-600" />
+              )}
+              <span className="text-sm">Email not be empty</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              {!emailRegex.test(email) ? (
+                <IoIosCloseCircleOutline className="text-lg text-red-600" />
+              ) : (
+                <IoIosCheckmarkCircleOutline className="text-lg text-green-600" />
+              )}
+              <span className="text-sm">Not a valid email</span>
+            </div>
+          </div>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Date of Birth
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="date"
-            onChange={(e) => setBirth(e.target.value)}
-          />
+          <div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Date of Birth
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="date"
+              onChange={(e) => setBirth(e.target.value)}
+            />
+          </div>
+          <div className="mt-1">
+            <div className="flex items-center gap-1.5">
+              {birth.length === 0 ? (
+                <IoIosCloseCircleOutline className="text-lg text-red-600" />
+              ) : (
+                <IoIosCheckmarkCircleOutline className="text-lg text-green-600" />
+              )}
+              <span className="text-sm">Date of birth not be empty</span>
+            </div>
+          </div>
         </div>
         <div className="flex items-center justify-between">
           <button
