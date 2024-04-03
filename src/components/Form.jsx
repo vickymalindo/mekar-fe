@@ -12,7 +12,6 @@ const Form = () => {
   const [birth, setBirth] = React.useState("");
   const emailRegex = /^[\w-\.]+@[a-z]+\.[a-z]{2,3}$/;
 
-  console.log(typeof identity);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const identity_number = identity;
