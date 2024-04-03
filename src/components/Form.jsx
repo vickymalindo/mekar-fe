@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import {
   IoIosCheckmarkCircleOutline,
@@ -11,9 +12,18 @@ const Form = () => {
   const [birth, setBirth] = React.useState("");
   const emailRegex = /^[\w-\.]+@[a-z]+\.[a-z]{2,3}$/;
 
-  const handleSubmit = (e) => {
+  console.log(typeof identity);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name, identity, email, birth);
+    const identity_number = identity;
+    const date_of_birth = birth;
+    const res = await axios.post("http://127.0.0.1:8000/account/", {
+      name,
+      identity_number,
+      email,
+      date_of_birth,
+    });
+    console.log(res);
   };
 
   return (
@@ -79,12 +89,13 @@ const Form = () => {
               <span className="text-sm">Identity Number not be empty</span>
             </div>
             <div className="flex items-center gap-1.5">
-              {identity.toString().length > 5 ? (
+              {identity.toString().length > 5 &&
+              identity.toString().length <= 16 ? (
                 <IoIosCheckmarkCircleOutline className="text-lg text-green-600" />
               ) : (
                 <IoIosCloseCircleOutline className="text-lg text-red-600" />
               )}
-              <span className="text-sm">Minimum of identity number is 5</span>
+              <span className="text-sm">Minimum is 5 and Maximum is 16</span>
             </div>
           </div>
         </div>
