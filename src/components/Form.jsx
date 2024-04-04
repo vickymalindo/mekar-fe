@@ -12,17 +12,77 @@ const Form = () => {
   const [birth, setBirth] = React.useState("");
   const emailRegex = /^[\w-\.]+@[a-z]+\.[a-z]{2,3}$/;
 
+  const nameValidator = () => {
+    if (!(name.length > 0 && name.length <= 20)) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const identityValidator = () => {
+    if (identity === 0) {
+      return true;
+    }
+
+    if (!(identity.toString().length > 5 && identity.toString().length <= 16)) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const emailValidator = () => {
+    if (email.length === 0) {
+      return true;
+    }
+
+    if (!emailRegex.test(email)) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const birthValidator = () => {
+    if (birth.length === 0) {
+      return true;
+    }
+
+    return false;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const identity_number = identity;
     const date_of_birth = birth;
-    const res = await axios.post("http://127.0.0.1:8000/account/", {
-      name,
-      identity_number,
-      email,
-      date_of_birth,
-    });
-    console.log(res);
+
+    if (
+      nameValidator() ||
+      identityValidator() ||
+      emailValidator() ||
+      birthValidator()
+    ) {
+      alert("You must passed all the rules");
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/account/", {
+        name,
+        identity_number,
+        email,
+        date_of_birth,
+      });
+      const { status, message } = res.data;
+      if (status === "success") {
+        alert(message);
+        return;
+      }
+      alert(message);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
